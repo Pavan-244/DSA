@@ -18,13 +18,42 @@ class Solution:
             arr[n-1] = first 
         return arr 
     
-    def rotateArray2():
-        pass
-    def rotateArray3():
-        pass
+    def rotateArray2(self, arr, d):
+        n = len(arr)
+        temp = []
+        temp += arr[d:]
+        temp += arr[:d]
+        return temp
+    
+    def rotateArray3(self, arr, d):
+        n = len(arr)
 
-solution = Solution()
-array = [1, 2, 3, 4, 5, 6, 7]
-d = 2
-rotated_array = solution.rotateArray1(array, d)
-print(rotated_array)  # Output: [3, 4, 5, 6, 7, 1, 2]
+        d %= n # 2 % 7 = 2
+        self.reverse(arr, 0, d - 1)
+        self.reverse(arr, d, n - 1)
+        self.reverse(arr, 0, n - 1)
+
+    def reverse(self, arr, start, end):
+        while start < end:
+            arr[start], arr[end] = arr[end], arr[start]
+            start += 1
+            end -= 1
+    
+#solution = Solution()
+#array = [1, 2, 3, 4, 5, 6, 7]
+#d = 2
+#rotated_array1 = solution.rotateArray1(array, d)
+#rotated_array2 = solution.rotateArray2(array, d)
+#print(rotated_array3)  # Output: [3, 4, 5, 6, 7, 1, 2]
+
+if __name__ == "__main__":
+    arr = [1, 2, 3, 4, 5, 6]
+    d = 2
+
+    # Create Solution instance
+    sol = Solution()
+    sol.rotateArray3(arr, d)
+
+    # Print output
+    for i in range(len(arr)):
+        print(arr[i], end=" ")   # Output: 3 4 5 6 1 2
